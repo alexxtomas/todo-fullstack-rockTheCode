@@ -29,6 +29,6 @@ export const ALLOWED_FORMATS = [
   'image/webp'
 ]
 
-export const CLOUDINARY_FOLDER = `todo-fullstack-rockTheCode/${
+export const CLOUDINARY_PATH = `todo-fullstack-rockTheCode/${
   getEnvironment().name
 }`
