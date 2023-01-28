@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose'
-import { ITodo } from './todo-model.js'
+import { ITodo } from './todo.model.js'
 
 export interface IUser {
   username: string
@@ -23,4 +23,4 @@ userSchema.set('toJSON', {
   }
 })
 
-export default model<IUser>('User', userSchema)
+export const User = model<IUser>('User', userSchema)
