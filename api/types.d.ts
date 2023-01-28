@@ -5,6 +5,7 @@ declare namespace Express {
 }
 
 interface IEnvironment {
+  name: string
   URI: string | undefined
   message: string
 }
