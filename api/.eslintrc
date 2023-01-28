@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": ["standard-with-typescript", "prettier"],
+  "parserOptions": {
+    "project": "api/tsconfig.json"
+  },
+
+  "rules": {
+    "prettier/prettier": 2,
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "@typescript-eslint/array-type": 0,
+    "@typescript-eslint/restrict-template-expressions": 0
+  }
+}
