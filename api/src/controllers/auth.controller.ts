@@ -4,7 +4,7 @@ import { User } from '../models/user.model.js'
 
 export async function signUp(req: Request, res: Response) {
   const { email, password, username } = req.body
-  const hashedPassword = bcrypt.hash(password, 10)
+  const hashedPassword = await bcrypt.hash(password, 10)
   const user = new User({
     email,
     password: hashedPassword,
