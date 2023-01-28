@@ -11,9 +11,9 @@ export interface ITodo {
 
 const todoSchema = new Schema({
   title: { type: String, required: true },
-  description: { type: String, required: true, default: '' },
-  completed: { type: Boolean, required: true, default: false },
-  image: { type: String, required: true, default: '' },
+  description: { type: String, default: '' },
+  completed: { type: Boolean, default: false },
+  image: { type: String, default: '' },
   user: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
