@@ -1,0 +1,6 @@
+{
+	"watch": ["./api/src"],
+	"ext": ".ts,.js",
+	"ignore": ["./node_modules", "./api/dist", "./app"],
+	"exec": "ts-node-esm --files ./api/src/index.ts"
+}
