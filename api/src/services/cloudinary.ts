@@ -1,7 +1,7 @@
 import { v2 as cloudinaryV2 } from 'cloudinary'
 
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
-import { CLOUDINARY_FOLDER } from '../utils/constants.js'
+import { CLOUDINARY_PATH } from '../utils/constants.js'
 import { getCloudinrayKeys } from '../utils/logic.js'
 
 const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
@@ -17,17 +17,18 @@ const setUp = () => {
 }
 
 const deleteFile = async (imgUrl: string) => {
-  const imgSplited = imgUrl.split('/')
-  const nameSplited = imgSplited[imgSplited.length - 1].split('.')
-  const folderSplited = imgSplited[imgSplited.length - 2]
-  const publicId = `${folderSplited}/${nameSplited[0]}`
-  await cloudinaryV2.uploader.destroy(publicId, () => {
+  const imageName = imgUrl
+    ?.split('/')
+    ?.at(-1)
+    ?.replace(/\.(.*)/, '')
+  const fullPath = `${CLOUDINARY_PATH}/${imageName}`
+  await cloudinaryV2.uploader.destroy(fullPath, () => {
     console.log('Image deleted in cloudinary 🗑️')
   })
 }
 
 const params = {
-  folder: CLOUDINARY_FOLDER,
+  folder: CLOUDINARY_PATH,
   allowedFormats: ['jpg', 'png', 'jpeg', 'webp']
 }
 
