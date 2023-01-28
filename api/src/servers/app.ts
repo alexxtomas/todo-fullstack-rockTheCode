@@ -2,6 +2,7 @@ import cors from 'cors'
 import express from 'express'
 import morgan from 'morgan'
 import '../db/connection.js'
+import authRouter from '../routes/auth.routes.js'
 import userRouter from '../routes/user.routes.js'
 const app = express()
 
@@ -13,6 +14,6 @@ app.use(morgan('dev'))
 
 // app.use('/api/todo')
 app.use('/api/users', userRouter)
-// app.use('/api/auth')
+app.use('/api/auth', authRouter)
 
 export default app
