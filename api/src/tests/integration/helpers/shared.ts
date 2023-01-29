@@ -10,7 +10,7 @@ export async function getUsers() {
   return users
 }
 
-export function closeConnection() {
+export async function closeConnection() {
   mongoose.connection.close()
-  server.close()
+  await server.close()
 }
