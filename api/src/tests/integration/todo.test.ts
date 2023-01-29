@@ -1,5 +1,9 @@
-describe('All right', () => {
-  test('1 + 1 sould be equal to 2', () => {
-    expect(1).toBe(1)
+import supertest from 'supertest'
+
+describe.skip('GET /api/todos', () => {
+  test('todos are returned as json', async () => {
+    // await SERVER.get('/api/todo')
+    //   .expect(200)
+    //   .expect('Content-Type', /application\/json/)
   })
 })
