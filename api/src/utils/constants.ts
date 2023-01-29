@@ -1,6 +1,5 @@
 import { IEnvironments } from '../../types.js'
 import { getEnvironment } from './logic.js'
-
 const { MONGODB_DEVELOPMENT_URI, MONGODB_TESTING_URI, MONGODB_PRODUCTION_URI } =
   process.env
 
@@ -28,7 +27,6 @@ export const ALLOWED_FORMATS = [
   'image/jpeg',
   'image/webp'
 ]
-
 export const CLOUDINARY_PATH = `todo-fullstack-rockTheCode/${
-  getEnvironment().name
+  !getEnvironment ? 'testing' : getEnvironment().name
 }`
