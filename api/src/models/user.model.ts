@@ -3,7 +3,6 @@ import { ITodo } from './todo.model.js'
 
 export interface IUser {
   username: string
-  email: string
   password: string
   todoList: ITodo[]
 }
