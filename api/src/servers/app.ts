@@ -1,4 +1,5 @@
 import cors from 'cors'
+import 'dotenv/config.js'
 import express, { Application } from 'express'
 import morgan from 'morgan'
 import '../db/connection.js'
