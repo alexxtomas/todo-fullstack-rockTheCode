@@ -10,7 +10,6 @@ export interface IUser {
 
 const userSchema = new Schema({
   username: { type: String, unique: true, required: true, min: 3 },
-  email: { type: String, unique: true, required: true, min: 9 },
   password: { type: String, required: true, min: 6 },
   todoList: [{ type: Schema.Types.ObjectId, ref: 'Todo' }]
 })
