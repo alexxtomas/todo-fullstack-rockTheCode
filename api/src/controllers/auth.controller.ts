@@ -3,10 +3,9 @@ import { Request, Response } from 'express'
 import { User } from '../models/user.model.js'
 
 export async function signUp(req: Request, res: Response) {
-  const { email, password, username } = req.body
+  const { password, username } = req.body
   const hashedPassword = await bcrypt.hash(password, 10)
   const user = new User({
-    email,
     password: hashedPassword,
     username
   })
