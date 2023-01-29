@@ -3,6 +3,7 @@ import 'dotenv/config.js'
 import express, { Application } from 'express'
 import morgan from 'morgan'
 import '../db/connection.js'
+import { errorHandlerMiddleware } from '../middlewares/errorHandler.middleware.js'
 import authRouter from '../routes/auth.routes.js'
 import todoRouter from '../routes/todo.routes.js'
 import userRouter from '../routes/user.routes.js'
@@ -24,5 +25,7 @@ app.use(morgan('dev'))
 app.use('/api/todo', todoRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/users', userRouter)
+
+app.use(errorHandlerMiddleware)
 
 export default app
