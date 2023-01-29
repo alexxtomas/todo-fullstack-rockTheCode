@@ -14,3 +14,11 @@ export interface IEnvironments {
   testing: IEnvironment
   production: IEnvironment
 }
+
+interface IError {
+  status: number
+  message: string
+}
+export interface IErrors {
+  [key: string]: IError
+}
