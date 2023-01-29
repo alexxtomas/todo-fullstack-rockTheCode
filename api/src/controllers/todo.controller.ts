@@ -30,7 +30,6 @@ export async function deleteTodo(req: Request, res: Response) {
   const { id } = req.params
   const deletedTodo = await Todo.findByIdAndDelete(id)
   if (deletedTodo?.image && deletedTodo?.image !== '') {
-    console.log(deletedTodo.image)
     await cloudinary.deleteFile(deletedTodo.image)
   }
   res.status(200).json(deletedTodo)
