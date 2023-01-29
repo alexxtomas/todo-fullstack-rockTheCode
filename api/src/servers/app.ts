@@ -7,6 +7,10 @@ import authRouter from '../routes/auth.routes.js'
 import todoRouter from '../routes/todo.routes.js'
 import userRouter from '../routes/user.routes.js'
 import cloudinary from '../services/cloudinary.js'
+import { checkNeededEnvironmentVariables } from '../utils/logic.js'
+
+checkNeededEnvironmentVariables()
+
 const app: Application = express()
 
 cloudinary.setUp()
