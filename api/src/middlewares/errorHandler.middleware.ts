@@ -1,17 +1,13 @@
 import { NextFunction, Request, Response } from 'express'
+import { ERRORS } from '../utils/constants.js'
 
-export class ValidationError extends Error {
-  constructor(message: string) {
-    super(message)
-    this.name = 'ValidationError'
-  }
-}
-const ERRORS = {}
 export function errorHandlerMiddleware(
-  err: Error,
+  error: Error,
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  console.log
+  const { status, message } = ERRORS[error.name] || ERRORS['Default']
+
+  res.status(status).json({ error: message })
 }
