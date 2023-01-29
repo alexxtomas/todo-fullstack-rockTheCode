@@ -32,3 +32,30 @@ export function getCloudinrayKeys() {
   }
   return { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET }
 }
+
+export function checkNeededEnvironmentVariables() {
+  const {
+    PORT,
+    MONGODB_DEVELOPMENT_URI,
+    MONGODB_TESTING_URI,
+    MONGODB_PRODUCTION_URI,
+    JWT_SECRET,
+    CLOUDINARY_CLOUD_NAME,
+    CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET
+  } = process.env
+
+  if (
+    !PORT ||
+    !MONGODB_DEVELOPMENT_URI ||
+    !MONGODB_TESTING_URI ||
+    !MONGODB_PRODUCTION_URI ||
+    !JWT_SECRET ||
+    !CLOUDINARY_CLOUD_NAME ||
+    !CLOUDINARY_API_KEY ||
+    !CLOUDINARY_API_SECRET
+  ) {
+    throw new Error('Missing environment variable/s ❌')
+  }
+  console.log('a')
+}
