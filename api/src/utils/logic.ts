@@ -57,5 +57,4 @@ export function checkNeededEnvironmentVariables() {
   ) {
     throw new Error('Missing environment variable/s ❌')
   }
-  console.log('a')
 }
