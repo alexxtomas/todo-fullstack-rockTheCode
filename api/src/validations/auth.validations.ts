@@ -13,7 +13,7 @@ export const signUpValidator = [
       return true
     })
     .notEmpty(),
-  body('passowrd')
+  body('password')
     .isString()
     .withMessage('password should be a string and is required')
     .isLength({ min: 6 })
