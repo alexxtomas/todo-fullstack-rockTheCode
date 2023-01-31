@@ -1,8 +1,16 @@
 import { IUser, User } from '../models/user.model.js'
-import { appServer, closeConnection, getUsers } from './helpers/shared.js'
-import { getInitialUsers, getOneUser, initialUsers } from './helpers/users.js'
+import {
+  appServer,
+  closeConnection,
+  getInitialUsers,
+  getOneUser,
+  initialUsers,
+  URLS
+} from './helpers.js'
+// import { appServer, closeConnection } from './helpers/shared.js'
+// import { getInitialUsers, getOneUser, initialUsers } from './helpers/users.js'
 
-describe.skip('USERS', () => {
+describe('USERS', () => {
   beforeEach(async () => {
     await User.deleteMany()
 
@@ -10,18 +18,18 @@ describe.skip('USERS', () => {
     await User.insertMany(initialUsers)
   })
 
-  describe.skip('GET /api/users', async () => {
+  describe('GET /api/users', async () => {
     test('should return a json', () => {
       appServer
-        .get('/api/users')
+        .get(URLS.USERS)
         .expect(200)
         .expect('Content-Type', /application\/json/)
     })
 
     test('if there are no conent should return 204', async () => {
       await User.deleteMany()
-      const users = await getUsers()
-      await appServer.get('/api/users').expect(204)
+
+      await appServer.get(URLS.USERS).expect(204)
     })
 
     test('should return all initial users', async () => {
@@ -49,7 +57,7 @@ describe.skip('USERS', () => {
     test('should return a user', async () => {
       const user = await getOneUser()
       const { body: returnedUser } = await appServer.get(
-        `/api/users/${user?.id}`
+        `${URLS.USERS}/${user?.id}`
       )
       expect(returnedUser.username).toEqual(user?.username)
       expect(returnedUser.id).toEqual(user?.id)
@@ -58,7 +66,7 @@ describe.skip('USERS', () => {
     test('It should return an appropriate error if the id is not valid', async () => {
       const expectedBody = { error: 'No existent user with this id' }
       const { body } = await appServer
-        .get(`/api/users/4343432dfdfs`)
+        .get(`${URLS.USERS}/4343432dfdfs`)
         .expect(400)
 
       expect(body).toEqual(expectedBody)
