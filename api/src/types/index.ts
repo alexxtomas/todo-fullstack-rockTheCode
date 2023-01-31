@@ -16,3 +16,12 @@ interface IError {
 export interface IErrors {
   [key: string]: IError
 }
+
+export interface IURLS {
+  AUTH: {
+    LOGIN: string
+    SIGN_UP: string
+  }
+  TODO: string
+  USERS: string
+}
