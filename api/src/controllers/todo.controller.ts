@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import { ITodo, Todo } from '../models/todo.model.js'
-import { User } from '../models/user.model.js'
+import { IUser, User } from '../models/user.model.js'
 import cloudinary from '../services/cloudinary.js'
 import { ALLOWED_FORMATS } from '../utils/constants.js'
 
@@ -11,7 +11,7 @@ export async function getAllTodo(
   next: NextFunction
 ) {
   try {
-    const todos = await Todo.find()
+    const todos = await Todo.find().populate('user', { username: 1, id: 1 })
     res.status(!todos.length ? 204 : 200).json(todos)
   } catch (error) {
     next(error)
@@ -25,7 +25,7 @@ export async function getById(req: Request, res: Response, next: NextFunction) {
       return res.status(400).json({ errors: errors.array() })
     }
     const { id } = req.params
-    const todo = await Todo.findById(id)
+    const todo = await Todo.findById(id).populate('user', { username: 1 })
     res.status(200).json(todo)
   } catch (error) {
     next(error)
