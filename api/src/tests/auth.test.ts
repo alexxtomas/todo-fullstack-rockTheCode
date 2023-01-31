@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt'
 import { IUser, User } from '../models/user.model.js'
 import { getInitialUser, URL } from './helpers/auth.js'
 import { appServer, closeConnection, getUsers } from './helpers/shared.js'
@@ -10,7 +9,71 @@ describe('AUTH', () => {
     const initialUser = await getInitialUser()
     await new User(initialUser).save()
   })
-  describe.skip('POST /api/auth/login')
+  describe('POST /api/auth/login', () => {
+    test('when user enters a correct credentials should get a token and a proper status code', async () => {
+      const { username } = await getInitialUser()
+
+      const { body } = await appServer
+        .post(URL.login)
+        .send({ username, password: 'testPassword' })
+        .expect(200)
+
+      expect(body.token).toBeDefined()
+    })
+
+    test('when user enters a invalid username, there should be an proper status code and error message', async () => {
+      const invalidUsername = {
+        username: 'invalidUser',
+        password: 'fsjkfjksfkjsj'
+      }
+
+      const { body } = await appServer
+        .post(URL.login)
+        .send(invalidUsername)
+        .expect(400)
+
+      expect(body).toStrictEqual({
+        errors: [
+          {
+            value: invalidUsername.username,
+            msg: 'invalid credentials',
+            param: 'username',
+            location: 'body'
+          },
+          {
+            value: invalidUsername.password,
+            msg: 'invalid credentails',
+            param: 'password',
+            location: 'body'
+          }
+        ]
+      })
+    })
+
+    test('when user enters a invalid password, there should be an proper status code and error message', async () => {
+      const { username } = await getInitialUser()
+      const invalidPassword = {
+        username,
+        password: 'fsjkfjksfkjsj'
+      }
+
+      const { body } = await appServer
+        .post(URL.login)
+        .send(invalidPassword)
+        .expect(400)
+
+      expect(body).toStrictEqual({
+        errors: [
+          {
+            value: invalidPassword.password,
+            msg: 'invalid credentails',
+            param: 'password',
+            location: 'body'
+          }
+        ]
+      })
+    })
+  })
 
   describe('POST /api/auth/sign-up', () => {
     test('works as expected when user sign up with correct credentials', async () => {
@@ -105,5 +168,3 @@ describe('AUTH', () => {
     })
   })
 })
-
-// 'when the user enters a username that does not have a minimum length of 3, there should be a proper status code and error message'
