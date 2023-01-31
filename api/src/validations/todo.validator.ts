@@ -12,7 +12,7 @@ export const idValidator = [
     })
 ]
 
-export const createTodoValidator = [
+export const createAndUpdateTodoValidator = [
   body('title')
     .isString()
     .withMessage('title should be a string')
