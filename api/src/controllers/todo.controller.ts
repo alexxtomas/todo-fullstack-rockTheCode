@@ -5,7 +5,7 @@ import { IUser, User } from '../models/user.model.js'
 import cloudinary from '../services/cloudinary.js'
 import { ALLOWED_FORMATS } from '../utils/constants.js'
 
-export async function getAllTodo(
+export async function getAllTodoController(
   req: Request,
   res: Response,
   next: NextFunction
@@ -18,7 +18,11 @@ export async function getAllTodo(
   }
 }
 
-export async function getById(req: Request, res: Response, next: NextFunction) {
+export async function getByIdController(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -32,7 +36,7 @@ export async function getById(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export async function createTodo(
+export async function createTodoController(
   req: Request,
   res: Response,
   next: NextFunction
@@ -68,7 +72,7 @@ export async function createTodo(
   }
 }
 
-export async function deleteTodo(
+export async function deleteTodoController(
   req: Request,
   res: Response,
   next: NextFunction
@@ -89,7 +93,7 @@ export async function deleteTodo(
   }
 }
 
-export async function updateTodo(
+export async function updateTodoController(
   req: Request,
   res: Response,
   next: NextFunction

@@ -1,10 +1,10 @@
 import { Router } from 'express'
 import {
-  createTodo,
-  deleteTodo,
-  getAllTodo,
-  getById,
-  updateTodo
+  createTodoController,
+  deleteTodoController,
+  getAllTodoController,
+  getByIdController,
+  updateTodoController
 } from '../controllers/todo.controller.js'
 import { tokenValidator } from '../middlewares/token.middleware.js'
 import { upload } from '../middlewares/upload.middleware.js'
@@ -15,20 +15,20 @@ import {
 
 const router = Router()
 
-router.get('/', getAllTodo)
-router.get('/:id', idValidator, getById)
+router.get('/', getAllTodoController)
+router.get('/:id', idValidator, getByIdController)
 router.post(
   '/',
   [tokenValidator, upload.single('image')],
   createAndUpdateTodoValidator,
-  createTodo
+  createTodoController
 )
 router.put(
   '/:id',
   [tokenValidator, upload.single('image')],
   idValidator,
   createAndUpdateTodoValidator,
-  updateTodo
+  updateTodoController
 )
-router.delete('/:id', tokenValidator, idValidator, deleteTodo)
+router.delete('/:id', tokenValidator, idValidator, deleteTodoController)
 export default router

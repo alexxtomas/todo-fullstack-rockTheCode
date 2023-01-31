@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { ITodo } from '../models/todo.model.js'
 import { User } from '../models/user.model.js'
 
-export async function getAllUsers(_req: Request, res: Response) {
+export async function getAllUsersController(_req: Request, res: Response) {
   const users = await User.find().populate<ITodo>('todoList', {
     title: 1,
     description: 1,
@@ -12,7 +12,7 @@ export async function getAllUsers(_req: Request, res: Response) {
   res.status(!users.length ? 204 : 200).json(users)
 }
 
-export async function getUserById(req: Request, res: Response) {
+export async function getUserByIdController(req: Request, res: Response) {
   const { id } = req.params
   const user = await User.findById(id).populate<ITodo>('todoList', {
     title: 1,
