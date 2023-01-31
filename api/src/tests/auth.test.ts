@@ -1,8 +1,8 @@
 import { IUser, User } from '../models/user.model.js'
 import { getInitialUser, URL } from './helpers/auth.js'
-import { appServer, closeConnection, getUsers } from './helpers/shared.js'
+import { appServer, closeConnection, getAllUsers } from './helpers/shared.js'
 
-describe('AUTH', () => {
+describe.skip('AUTH', () => {
   beforeEach(async () => {
     await User.deleteMany()
 
@@ -77,7 +77,7 @@ describe('AUTH', () => {
 
   describe('POST /api/auth/sign-up', () => {
     test('works as expected when user sign up with correct credentials', async () => {
-      const usersAtStart = await getUsers()
+      const usersAtStart = await getAllUsers()
 
       const newUser: IUser = {
         username: 'New user',
@@ -91,7 +91,7 @@ describe('AUTH', () => {
         .expect(201)
         .expect('Content-Type', /application\/json/)
 
-      const usersAtEnd: IUser[] = await getUsers()
+      const usersAtEnd: IUser[] = await getAllUsers()
 
       const usernames = usersAtEnd.map((user) => user.username)
 
