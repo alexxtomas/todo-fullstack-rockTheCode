@@ -6,6 +6,7 @@ import {
   getById,
   updateTodo
 } from '../controllers/todo.controller.js'
+import { tokenValidator } from '../middlewares/token.middleware.js'
 import { upload } from '../middlewares/upload.middleware.js'
 import {
   createAndUpdateTodoValidator,
@@ -18,16 +19,16 @@ router.get('/', getAllTodo)
 router.get('/:id', idValidator, getById)
 router.post(
   '/',
-  [upload.single('image')],
+  [tokenValidator, upload.single('image')],
   createAndUpdateTodoValidator,
   createTodo
 )
 router.put(
   '/:id',
-  [upload.single('image')],
+  [tokenValidator, upload.single('image')],
   idValidator,
   createAndUpdateTodoValidator,
   updateTodo
 )
-router.delete('/:id', idValidator, deleteTodo)
+router.delete('/:id', tokenValidator, idValidator, deleteTodo)
 export default router
