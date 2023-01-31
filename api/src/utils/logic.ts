@@ -1,4 +1,4 @@
-import { IEnvironments } from '../../types.js'
+import { IEnvironments } from '../types/index.js'
 import { ENVIRONMENTS } from './constants.js'
 
 export function getEnvironment() {

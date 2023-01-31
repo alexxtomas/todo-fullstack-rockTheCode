@@ -1,4 +1,4 @@
-import { IEnvironments, IErrors } from '../../types.js'
+import { IEnvironments, IErrors } from '../types/index.js'
 import { getEnvironment } from './logic.js'
 const { MONGODB_DEVELOPMENT_URI, MONGODB_TESTING_URI, MONGODB_PRODUCTION_URI } =
   process.env
