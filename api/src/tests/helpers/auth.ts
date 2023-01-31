@@ -1,6 +1,10 @@
 import bcrypt from 'bcrypt'
 
-export const URL = {
+interface IURL {
+  signUp: string
+  login: string
+}
+export const URL: IURL = {
   signUp: '/api/auth/sign-up',
   login: '/api/auth/login'
 }
