@@ -1,8 +1,15 @@
 import { IUser, User } from '../models/user.model.js'
-import { getInitialUser, URL } from './helpers/auth.js'
-import { appServer, closeConnection, getAllUsers } from './helpers/shared.js'
+import {
+  appServer,
+  closeConnection,
+  getAllUsers,
+  getInitialUser,
+  URLS
+} from './helpers.js'
+// import { getInitialUser } from './helpers.js'
+// import { appServer, closeConnection, getAllUsers } from './helpers/shared.js'
 
-describe.skip('AUTH', () => {
+describe('AUTH', () => {
   beforeEach(async () => {
     await User.deleteMany()
 
@@ -14,7 +21,7 @@ describe.skip('AUTH', () => {
       const { username } = await getInitialUser()
 
       const { body } = await appServer
-        .post(URL.login)
+        .post(URLS.AUTH.LOGIN)
         .send({ username, password: 'testPassword' })
         .expect(200)
 
@@ -28,7 +35,7 @@ describe.skip('AUTH', () => {
       }
 
       const { body } = await appServer
-        .post(URL.login)
+        .post(URLS.AUTH.LOGIN)
         .send(invalidUsername)
         .expect(400)
 
@@ -58,7 +65,7 @@ describe.skip('AUTH', () => {
       }
 
       const { body } = await appServer
-        .post(URL.login)
+        .post(URLS.AUTH.LOGIN)
         .send(invalidPassword)
         .expect(400)
 
@@ -86,7 +93,7 @@ describe.skip('AUTH', () => {
       }
 
       await appServer
-        .post(URL.signUp)
+        .post(URLS.AUTH.SIGN_UP)
         .send(newUser)
         .expect(201)
         .expect('Content-Type', /application\/json/)
@@ -101,7 +108,7 @@ describe.skip('AUTH', () => {
     test('when the user enters a username that does not exist, there should be a proper status code and error message', async () => {
       const existentUser = await getInitialUser()
       const { body } = await appServer
-        .post(URL.signUp)
+        .post(URLS.AUTH.SIGN_UP)
         .send(existentUser)
         .expect(400)
 
@@ -124,7 +131,7 @@ describe.skip('AUTH', () => {
       }
 
       const { body } = await appServer
-        .post(URL.signUp)
+        .post(URLS.AUTH.SIGN_UP)
         .send(badUsername)
         .expect(400)
 
@@ -147,7 +154,7 @@ describe.skip('AUTH', () => {
       }
 
       const { body } = await appServer
-        .post(URL.signUp)
+        .post(URLS.AUTH.SIGN_UP)
         .send(badPassword)
         .expect(400)
 
