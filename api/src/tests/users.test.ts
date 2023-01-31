@@ -1,4 +1,4 @@
-import { IUser, User } from '../../models/user.model.js'
+import { IUser, User } from '@models/user.model.js'
 import { appServer, closeConnection, getUsers } from './helpers/shared.js'
 import { getInitialUsers, getOneUser, initialUsers } from './helpers/users.js'
 

@@ -1,5 +1,5 @@
+import { IUser, User } from '@models/user.model.js'
 import bcrypt from 'bcrypt'
-import { IUser, User } from '../../models/user.model.js'
 import { appServer, closeConnection, getUsers } from './helpers/shared.js'
 
 describe.skip('AUTH', () => {
