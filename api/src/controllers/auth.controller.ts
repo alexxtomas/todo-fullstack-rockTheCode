@@ -1,8 +1,8 @@
-import { IUser, User } from '@models/user.model.js'
 import bcrypt from 'bcrypt'
 import { NextFunction, Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
+import { IUser, User } from '../models/user.model.js'
 export async function signUp(req: Request, res: Response, next: NextFunction) {
   try {
     const errors = validationResult(req)

@@ -1,12 +1,12 @@
+import { Router } from 'express'
 import {
   createTodo,
   deleteTodo,
   getAllTodo,
   getById,
   updateTodo
-} from '@controllers/todo.controller.js'
-import { upload } from '@middlewares/upload.middleware.js'
-import { Router } from 'express'
+} from '../controllers/todo.controller.js'
+import { upload } from '../middlewares/upload.middleware.js'
 import {
   createAndUpdateTodoValidator,
   idValidator

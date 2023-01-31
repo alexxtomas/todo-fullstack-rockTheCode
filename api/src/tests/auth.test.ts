@@ -1,8 +1,8 @@
-import { IUser, User } from '@models/user.model.js'
 import bcrypt from 'bcrypt'
+import { IUser, User } from '../models/user.model.js'
 import { appServer, closeConnection, getUsers } from './helpers/shared.js'
 
-describe.skip('AUTH', () => {
+describe('AUTH', () => {
   beforeEach(async () => {
     await User.deleteMany()
 
@@ -18,7 +18,7 @@ describe.skip('AUTH', () => {
   describe.skip('POST /api/auth/login')
 
   describe('POST /api/auth/sign-up', () => {
-    test('works as expected when user sign up', async () => {
+    test('works as expected when user sign up with correct credentials', async () => {
       const usersAtStart = await getUsers()
 
       const newUser: IUser = {
@@ -39,6 +39,10 @@ describe.skip('AUTH', () => {
 
       expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
       expect(usernames).toContain(newUser.username)
+    })
+    test('when the user enters a username that does not exist, there should be a proper status code and error message', async () => {
+      const { body } = await appServer.get('/api/auth/sign-up').expect(400)
+      expect(body).toBe({ error: '' })
     })
   })
 

@@ -11,18 +11,6 @@
     "rootDir": "src",
     "esModuleInterop": true,
     "allowJs": true,
-    "baseUrl": "src",
-    "paths": {
-      "@controllers/*": ["controllers/*"],
-      "@middlewares/*": ["middlewares/*"],
-      "@models/*": ["models/*"],
-      "@routes/*": ["routes/*"],
-      "@db/*": ["db/*"],
-      "@services/*": ["services/*"],
-      "@servers/*": ["servers/*"],
-      "@utils/*": ["utils/*"],
-      "@src/*": ["."]
-    }
   },
   "include": ["src"],
   "exclude": ["node_modules"],
