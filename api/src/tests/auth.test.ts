@@ -1,18 +1,14 @@
 import bcrypt from 'bcrypt'
 import { IUser, User } from '../models/user.model.js'
+import { getInitialUser } from './helpers/auth.js'
 import { appServer, closeConnection, getUsers } from './helpers/shared.js'
 
 describe('AUTH', () => {
   beforeEach(async () => {
     await User.deleteMany()
 
-    const passwordHash = await bcrypt.hash('testPassword', 10)
-    const initialUser = new User({
-      username: 'testUser',
-      password: passwordHash
-    })
-
-    await initialUser.save()
+    const initialUser = await getInitialUser()
+    await new User(initialUser).save()
   })
   // TODO
   describe.skip('POST /api/auth/login')
@@ -33,7 +29,7 @@ describe('AUTH', () => {
         .expect(201)
         .expect('Content-Type', /application\/json/)
 
-      const usersAtEnd = await getUsers()
+      const usersAtEnd: IUser[] = await getUsers()
 
       const usernames = usersAtEnd.map((user) => user.username)
 
@@ -41,12 +37,74 @@ describe('AUTH', () => {
       expect(usernames).toContain(newUser.username)
     })
     test('when the user enters a username that does not exist, there should be a proper status code and error message', async () => {
-      const { body } = await appServer.get('/api/auth/sign-up').expect(400)
-      expect(body).toBe({ error: '' })
+      const existentUser = await getInitialUser()
+      const { body } = await appServer
+        .post('/api/auth/sign-up')
+        .send(existentUser)
+        .expect(400)
+
+      expect(body).toStrictEqual({
+        errors: [
+          {
+            value: existentUser.username,
+            msg: 'username is not available',
+            param: 'username',
+            location: 'body'
+          }
+        ]
+      })
+    })
+
+    test('when the user enters a username that does not have a minimum length of 3, there should be a proper status code and error message', async () => {
+      const badUsername = {
+        username: 'al',
+        password: '1rfjkefjkdjkfd'
+      }
+
+      const { body } = await appServer
+        .post('/api/auth/sign-up')
+        .send(badUsername)
+        .expect(400)
+
+      expect(body).toStrictEqual({
+        errors: [
+          {
+            value: badUsername.username,
+            msg: 'username must have a minimum length of 3',
+            param: 'username',
+            location: 'body'
+          }
+        ]
+      })
+    })
+
+    test('when the user enters a password that does not have a minimum length of 6, there should be a proper status code and error message', async () => {
+      const badPassword = {
+        username: 'alex',
+        password: '123'
+      }
+
+      const { body } = await appServer
+        .post('/api/auth/sign-up')
+        .send(badPassword)
+        .expect(400)
+
+      expect(body).toStrictEqual({
+        errors: [
+          {
+            value: badPassword.password,
+            msg: 'password must have a minimum length of 6',
+            param: 'password',
+            location: 'body'
+          }
+        ]
+      })
+    })
+
+    afterAll(async () => {
+      await closeConnection()
     })
   })
-
-  afterAll(async () => {
-    await closeConnection()
-  })
 })
+
+// 'when the user enters a username that does not have a minimum length of 3, there should be a proper status code and error message'
