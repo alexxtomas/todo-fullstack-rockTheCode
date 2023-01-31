@@ -3,9 +3,9 @@ import { IUser } from './user.model.js'
 
 export interface ITodo {
   title: string
-  description: string
-  completed: boolean
-  image: string
+  description?: string
+  completed?: boolean
+  image?: string
   user: Types.ObjectId
 }
 
