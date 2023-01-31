@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import { ITodo, Todo } from '../models/todo.model.js'
+import { User } from '../models/user.model.js'
 import cloudinary from '../services/cloudinary.js'
 import { ALLOWED_FORMATS } from '../utils/constants.js'
 
@@ -41,7 +42,7 @@ export async function createTodo(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
-    const newTodo = new Todo(req.body)
+    const newTodo: ITodo = req.body
     const { file } = req
     if (file) {
       if (!ALLOWED_FORMATS.includes(file.mimetype)) {
@@ -53,7 +54,14 @@ export async function createTodo(
       }
       newTodo.image = file.path
     }
-    const savedTodo = await newTodo.save()
+    const { userId } = req
+    const user = await User.findById(userId)
+    newTodo.user = user?._id!
+    const savedTodo = await new Todo(newTodo).save()
+    if (user?.todoList) {
+      user.todoList = [...user.todoList, savedTodo._id]
+    }
+    await user?.save()
     res.status(201).json(savedTodo)
   } catch (error) {
     next(error)
