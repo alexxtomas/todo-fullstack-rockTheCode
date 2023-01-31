@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose'
+import { model, PopulatedDoc, Schema, Types } from 'mongoose'
 import { IUser } from './user.model.js'
 
 export interface ITodo {
@@ -6,7 +6,7 @@ export interface ITodo {
   description: string
   completed: boolean
   image: string
-  user: IUser
+  user: Types.ObjectId
 }
 
 const todoSchema = new Schema({

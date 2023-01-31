@@ -1,10 +1,10 @@
-import { model, Schema } from 'mongoose'
+import { model, PopulatedDoc, Schema, Types } from 'mongoose'
 import { ITodo } from './todo.model.js'
 
 export interface IUser {
   username: string
   password: string
-  todoList: ITodo[]
+  todoList: Types.ObjectId[]
 }
 
 const userSchema = new Schema({
