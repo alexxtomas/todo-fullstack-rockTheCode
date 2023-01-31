@@ -1,8 +1,8 @@
 import { v2 as cloudinaryV2 } from 'cloudinary'
 
+import { CLOUDINARY_PATH } from '@utils/constants.js'
+import { getCloudinrayKeys } from '@utils/logic.js'
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
-import { CLOUDINARY_PATH } from '../utils/constants.js'
-import { getCloudinrayKeys } from '../utils/logic.js'
 
 const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
   getCloudinrayKeys()

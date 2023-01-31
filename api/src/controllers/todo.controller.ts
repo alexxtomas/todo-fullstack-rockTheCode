@@ -1,8 +1,8 @@
+import { ITodo, Todo } from '@models/todo.model.js'
+import cloudinary from '@services/cloudinary.js'
+import { ALLOWED_FORMATS } from '@utils/constants.js'
 import { NextFunction, Request, Response } from 'express'
 import { validationResult } from 'express-validator'
-import { ITodo, Todo } from '../models/todo.model.js'
-import cloudinary from '../services/cloudinary.js'
-import { ALLOWED_FORMATS } from '../utils/constants.js'
 
 export async function getAllTodo(
   req: Request,

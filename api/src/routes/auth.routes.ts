@@ -1,5 +1,5 @@
+import { login, signUp } from '@controllers/auth.controller.js'
 import { Router } from 'express'
-import { login, signUp } from '../controllers/auth.controller.js'
 import {
   loginValidator,
   signUpValidator

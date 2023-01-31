@@ -1,5 +1,5 @@
+import { getURI } from '@utils/logic.js'
 import mongoose from 'mongoose'
-import { getURI } from '../utils/logic.js'
 await mongoose
   .set('strictQuery', false)
   .connect(getURI())

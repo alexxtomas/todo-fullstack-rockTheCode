@@ -1,5 +1,5 @@
+import { Todo } from '@models/todo.model.js'
 import { body, param } from 'express-validator'
-import { Todo } from '../models/todo.model.js'
 
 export const idValidator = [
   param('id')

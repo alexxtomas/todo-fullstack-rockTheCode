@@ -1,5 +1,5 @@
+import { ERRORS } from '@utils/constants.js'
 import { NextFunction, Request, Response } from 'express'
-import { ERRORS } from '../utils/constants.js'
 
 export function errorHandlerMiddleware(
   error: Error,
