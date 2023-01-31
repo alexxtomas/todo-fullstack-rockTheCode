@@ -2,7 +2,7 @@ import cors from 'cors'
 import 'dotenv/config.js'
 import express, { Application } from 'express'
 import morgan from 'morgan'
-import '../db/connection.js'
+import { dbConnection } from '../db/connection.js'
 import { errorHandlerMiddleware } from '../middlewares/errorHandler.middleware.js'
 import authRouter from '../routes/auth.routes.js'
 import todoRouter from '../routes/todo.routes.js'
@@ -12,6 +12,7 @@ import { checkNeededEnvironmentVariables } from '../utils/logic.js'
 
 checkNeededEnvironmentVariables()
 
+dbConnection()
 const app: Application = express()
 
 cloudinary.setUp()

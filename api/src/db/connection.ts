@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
 import { getURI } from '../utils/logic.js'
-await mongoose
-  .set('strictQuery', false)
-  .connect(getURI())
-  .then(() => console.log(`Connected to database 🚀 `))
-  .catch((err) => console.error(err))
+export async function dbConnection() {
+  await mongoose
+    .set('strictQuery', false)
+    .connect(getURI())
+    .then(() => console.log(`Connected to database 🚀 `))
+    .catch((err) => console.error(err))
+}
