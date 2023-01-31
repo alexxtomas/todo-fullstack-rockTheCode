@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import { IUser, User } from '../models/user.model.js'
-import { getInitialUser } from './helpers/auth.js'
+import { getInitialUser, URL } from './helpers/auth.js'
 import { appServer, closeConnection, getUsers } from './helpers/shared.js'
 
 describe('AUTH', () => {
@@ -10,7 +10,6 @@ describe('AUTH', () => {
     const initialUser = await getInitialUser()
     await new User(initialUser).save()
   })
-  // TODO
   describe.skip('POST /api/auth/login')
 
   describe('POST /api/auth/sign-up', () => {
@@ -24,7 +23,7 @@ describe('AUTH', () => {
       }
 
       await appServer
-        .post('/api/auth/sign-up')
+        .post(URL.signUp)
         .send(newUser)
         .expect(201)
         .expect('Content-Type', /application\/json/)
@@ -39,7 +38,7 @@ describe('AUTH', () => {
     test('when the user enters a username that does not exist, there should be a proper status code and error message', async () => {
       const existentUser = await getInitialUser()
       const { body } = await appServer
-        .post('/api/auth/sign-up')
+        .post(URL.signUp)
         .send(existentUser)
         .expect(400)
 
@@ -62,7 +61,7 @@ describe('AUTH', () => {
       }
 
       const { body } = await appServer
-        .post('/api/auth/sign-up')
+        .post(URL.signUp)
         .send(badUsername)
         .expect(400)
 
@@ -85,7 +84,7 @@ describe('AUTH', () => {
       }
 
       const { body } = await appServer
-        .post('/api/auth/sign-up')
+        .post(URL.signUp)
         .send(badPassword)
         .expect(400)
 
