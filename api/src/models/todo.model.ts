@@ -6,7 +6,7 @@ export interface ITodo {
   description?: string
   completed?: boolean
   image?: string
-  user: Types.ObjectId
+  user?: Types.ObjectId
 }
 
 const todoSchema = new Schema({
