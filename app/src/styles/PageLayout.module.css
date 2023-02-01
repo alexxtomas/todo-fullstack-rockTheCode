@@ -1,0 +1,14 @@
+.header {
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: .5px;
+  margin-top: 12px;
+}
+
+.main {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  gap: 10px;
+}
